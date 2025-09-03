@@ -34,7 +34,10 @@ export const ThirdPage = ({ onChangeStepPage3 }) => {
         >
           <img className="w-[24px] h-[24px]" src="chevron_left.png" /> Back
         </button>
-        <button className="bg-[#121316] flex items-center gap-2 text-white border rounded-md px-6 py-2 hover:bg-gray-800 transition w-[280px] justify-center ">
+        <button
+          onClick={onChangeStepPage3("fourth")}
+          className="bg-[#121316] flex items-center gap-2 text-white border rounded-md px-6 py-2 hover:bg-gray-800 transition w-[280px] justify-center "
+        >
           Continue 3/3
         </button>
       </div>

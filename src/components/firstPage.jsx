@@ -30,15 +30,13 @@ export const FirstPage = ({ form, onChange, onChangeStep }) => {
     }
 
     setErrors(newErrors);
-    if (!newErrors.firstname && !newErrors.lastname) {
+    if (!newErrors.firstname && !newErrors.lastname && !newErrors.username) {
       onChangeStep("second");
     }
   }
 
-  // console.log(errors);
-
   return (
-    <div className="mt-10">
+    <div className="mt-10 h-fit">
       <div>
         <p className="font-semibold text-black">
           First name <span className="text-red-600">*</span>
@@ -50,7 +48,7 @@ export const FirstPage = ({ form, onChange, onChangeStep }) => {
           className="w-full px-3 py-2 border text-[#8B8E95] border-gray-300 rounded-md mt-2"
         />
         {errors.firstname && (
-          <div className="text-red-600 text-[16px] mt-2">
+          <div className="text-red-600 text-[14px] mt-2">
             {errors.firstname}
           </div>
         )}
@@ -67,7 +65,7 @@ export const FirstPage = ({ form, onChange, onChangeStep }) => {
           className="w-full px-3 py-2 border text-[#8B8E95] border-gray-300 rounded-md mt-2"
         />
         {errors.lastname && (
-          <div className="text-red-600 text-[16px] mt-2">{errors.lastname}</div>
+          <div className="text-red-600 text-[14px] mt-2">{errors.lastname}</div>
         )}
       </div>
 
@@ -75,6 +73,7 @@ export const FirstPage = ({ form, onChange, onChangeStep }) => {
         <p className="font-semibold mt-2 text-black">
           Username <span className="text-red-600">*</span>
         </p>
+
         <input
           value={form.username}
           onChange={(e) => onChange({ ...form, username: e.target.value })}
@@ -82,14 +81,14 @@ export const FirstPage = ({ form, onChange, onChangeStep }) => {
           className="w-full px-3 py-2 border text-[#8B8E95] border-gray-300 rounded-md mt-2"
         />
         {errors.username && (
-          <div className="text-red-600 text-[16px] mt-2">{errors.username}</div>
+          <div className="text-red-600 text-[14px] mt-2">{errors.username}</div>
         )}
       </div>
 
-      <div className="flex justify-center items-center mt-4">
+      <div className="flex justify-center items-center ">
         <button
           onClick={gotoNext}
-          className="flex items-center gap-2 bg-black hover:bg-gray-800 text-white rounded-md w-full px-6 py-2 justify-center mt-20"
+          className={`flex items-center gap-2 bg-black hover:bg-gray-800 text-white rounded-md w-full px-6 py-2 justify-center mt-30`}
         >
           Continue 1/3
           <img className="w-[24px] h-[24px]" src="chevron_right.png" />
