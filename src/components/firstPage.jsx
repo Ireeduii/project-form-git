@@ -88,11 +88,10 @@ export const FirstPage = ({ form, onChange, onChangeStep }) => {
       </div>
 
       <motion.button
-        whileHover={{ scale: 1.1 }}
+        whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        onHoverStart={() => console.log("hover started!")}
         onClick={gotoNext}
-        className="flex items-center gap-2 bg-black text-white rounded-md w-full px-6 py-2 justify-center mt-8"
+        className="flex items-center gap-2 bg-[#121316] text-white rounded-md w-full  px-6 py-2 justify-center mt-25 hover:bg-gray-800"
       >
         Continue 1/3
         <img className="w-[24px] h-[24px]" src="chevron_right.png" alt="Next" />

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "motion/react";
 
 export const ThirdPage = ({ onChangeStepPage3, formation, onChangeForm3 }) => {
   const [errors, setErrors] = useState({});
@@ -70,7 +71,7 @@ export const ThirdPage = ({ onChangeStepPage3, formation, onChangeForm3 }) => {
       </div>
 
       {preview ? (
-        <div className="w-[416px] h-[180px] mt-5 flex items-center justify-centers relative   rounded-md overflow-scroll">
+        <div className="w-[416px] h-[180px] mt-5 flex items-center justify-centers relative   rounded-md overflow-x-scroll overflow-y-scroll">
           <img className=" w-full" src={preview} />
         </div>
       ) : (
@@ -88,19 +89,25 @@ export const ThirdPage = ({ onChangeStepPage3, formation, onChangeForm3 }) => {
           {errors.image}
         </div>
       ) : undefined}
+
       <div className="flex justify-between items-center mt-32 gap-2">
-        <button
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           onClick={() => onChangeStepPage3("second")}
-          className="flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-100 transition w-[128px] justify-center"
+          className="flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-100  w-[128px] justify-center"
         >
           <img className="w-[24px] h-[24px]" src="chevron_left.png" /> Back
-        </button>
-        <button
+        </motion.button>
+
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           onClick={gotoNext}
-          className="bg-[#121316] flex items-center gap-2 text-white border rounded-md px-6 py-2 hover:bg-gray-800 transition w-[280px] justify-center "
+          className="bg-[#121316] flex items-center gap-2 text-white border rounded-md px-6 py-2 hover:bg-gray-800 w-[280px] justify-center "
         >
           Continue 3/3
-        </button>
+        </motion.button>
       </div>
     </div>
   );

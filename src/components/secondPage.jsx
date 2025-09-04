@@ -120,20 +120,25 @@ export const SecondPage = ({ structure, onChangeStepPage2, onChangeForm }) => {
       </div>
 
       <div>
-        <div className="flex justify-between items-center mt-20 gap-2">
-          <button
+        <div className="flex justify-between items-center mt-14 gap-2">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => onChangeStepPage2("first")}
-            className="flex items-center gap-2 px-4 py-2 border  border-gray-300 text-gray-700 rounded-md hover:bg-gray-100 transition w-[128px] justify-center"
+            className="flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-100 transition w-[128px] justify-center"
           >
             <img className="w-[24px] h-[24px]" src="chevron_left.png" /> Back
-          </button>
-          <button
+          </motion.button>
+
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={gotoNext}
             className="bg-[#121316] flex items-center gap-2 text-white border rounded-md px-6 py-2 hover:bg-gray-800 transition w-[280px] justify-center"
           >
             Continue 2/3
             <img className="w-[24px] h-[24px]" src="chevron_right.png" />
-          </button>
+          </motion.button>
         </div>
       </div>
     </div>
