@@ -6,17 +6,24 @@ import { useState } from "react";
 
 const Form = () => {
   const [step, setStep] = useState("first");
-  const [form, setForm] = useState({
-    firstname: "",
-    lastname: "",
-    username: "",
-    email: "",
-    phonenmbr: "",
-    password: "",
-    confpassword: "",
-  });
 
-  console.log(step);
+  const localForm =
+    typeof window !== "undefined" ? localStorage.getItem("my-form") : null;
+  const [form, setForm] = useState(
+    localForm
+      ? JSON.parse(localForm)
+      : {
+          firstname: "",
+          lastname: "",
+          username: "",
+          email: "",
+          phonenmbr: "",
+          password: "",
+          confpassword: "",
+          date: "",
+          image: "",
+        }
+  );
 
   //  page 1
   if (step === "first") {
@@ -79,30 +86,33 @@ const Form = () => {
             </p>
           </div>
 
-          <ThirdPage onChangeStepPage3={setStep} />
+          <ThirdPage
+            onChangeStepPage3={setStep}
+            formation={form}
+            onChangeForm3={setForm}
+          />
+        </div>
+      </div>
+    );
+  }
+  // page 4
+  if (step === "fourth") {
+    return (
+      <div className="bg-[#F4F4F4] w-full h-screen flex justify-center items-center">
+        <div className=" w-[480px]  rounded-md bg-white shadow-lg p-8">
+          <div>
+            <img className="w-[60px] h-[60px]" src="Main 1.png" />
+            <h2 className="font-semibold text-[26px] text-black">
+              You're All Set 🔥
+            </h2>
+            <p className="text-[#8E8E8E] text-[18px]">
+              We have received your submission. Thank you!
+            </p>
+          </div>
         </div>
       </div>
     );
   }
 };
 
-// page 4
-// return (
-//       <div className="bg-[#F4F4F4] w-full h-screen flex justify-center items-center">
-//         <div className=" w-[480px]  rounded-md bg-white shadow-lg p-8">
-//           <div>
-//             <img className="w-[60px] h-[60px]" src="Main 1.png" />
-//             <h2 className="font-semibold text-[26px] text-black">
-//               Join Us! 😎
-//             </h2>
-//             <p className="text-[#8E8E8E] text-[18px]">
-//               Please provide all current information accurately.
-//             </p>
-//           </div>
-//         </div>
-//       </div>
-
-//     )
 export default Form;
-
-// /Users/25LP4866/project-form-git/src/app/page.js
