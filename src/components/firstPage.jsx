@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "motion/react";
-import { Buttons } from "./button";
 
 export const FirstPage = ({ form, onChange, onChangeStep }) => {
   const [errors, setErrors] = useState({});
