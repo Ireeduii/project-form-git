@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "motion/react";
 
 export const ThirdPage = ({ onChangeStepPage3, formation, onChangeForm3 }) => {
@@ -12,9 +12,9 @@ export const ThirdPage = ({ onChangeStepPage3, formation, onChangeForm3 }) => {
     console.log(e.target.files);
   }
 
-  console.log(formation);
-  console.log("image:", errors.image);
-  console.log("date:", errors.date);
+  // console.log(formation);
+  // console.log("image:", errors.image);
+  // console.log("date:", errors.date);
   function gotoNext() {
     const newErrors = {};
 
@@ -25,14 +25,8 @@ export const ThirdPage = ({ onChangeStepPage3, formation, onChangeForm3 }) => {
       newErrors.date = "Please select a date.";
     }
 
-    // const imageRegex = /\.(jpg|jpeg|png)$/i;
-    // if (imageRegex.test(formation.image)) {
-    //   newErrors.image = null;
-    // } else {
-    //   newErrors.image = "Image cannot be blank";
-    // }
-
-    if (formation.image !== undefined) {
+    const imageRegex = /\.(jpg|jpeg|png|webp)$/i;
+    if (imageRegex.test(formation.image)) {
       newErrors.image = null;
     } else {
       newErrors.image = "Image cannot be blank";
@@ -41,10 +35,18 @@ export const ThirdPage = ({ onChangeStepPage3, formation, onChangeForm3 }) => {
     setErrors(newErrors);
 
     console.log(newErrors);
-    if (!newErrors.date && !newErrors.image) onChangeStepPage3("fourth");
+    if (!newErrors.date && !newErrors.image) {
+      localStorage.setItem("my-form", JSON.stringify(formation));
+      onChangeStepPage3("fourth");
+    }
   }
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0, right: -30 }}
+      animate={{ opacity: 1, right: 0 }}
+      transition={{ duration: 1 }}
+      style={{ position: "relative" }}
+    >
       <div className="mt-5 relative">
         <p className="font-semibold text-[14px] text-[#334155]">
           Date of birth <span className="text-red-600">*</span>
@@ -56,7 +58,7 @@ export const ThirdPage = ({ onChangeStepPage3, formation, onChangeForm3 }) => {
           }
           value={formation.date}
           type="date"
-          className="w-full border text-[#8B8E95] rounded-md mt-2 pl-2 h-[44px]"
+          className="w-full border text-black rounded-md mt-2 pl-2 h-[44px]"
         />
 
         {errors.date ? (
@@ -80,7 +82,10 @@ export const ThirdPage = ({ onChangeStepPage3, formation, onChangeForm3 }) => {
           <input
             type="file"
             className="absolute opacity-0 inset-0"
-            onChange={handleImageChange}
+            onChange={(e) => {
+              handleImageChange(e);
+              onChangeForm3({ ...formation, image: e.target.files[0].name });
+            }}
           />
         </div>
       )}
@@ -109,6 +114,6 @@ export const ThirdPage = ({ onChangeStepPage3, formation, onChangeForm3 }) => {
           Continue 3/3
         </motion.button>
       </div>
-    </div>
+    </motion.div>
   );
 };

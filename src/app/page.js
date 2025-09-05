@@ -3,40 +3,34 @@
 import { FirstPage, SecondPage, ThirdPage } from "@/components";
 import { motion } from "framer-motion";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Form = () => {
   const [step, setStep] = useState("first");
+  const [form, setForm] = useState({
+    firstname: "",
+    lastname: "",
+    username: "",
+    email: "",
+    phonenmbr: "",
+    password: "",
+    confpassword: "",
+    date: "",
+    image: "",
+  });
 
-  const localForm =
-    typeof window !== "undefined" ? localStorage.getItem("my-form") : null;
-  const [form, setForm] = useState(
-    localForm
-      ? JSON.parse(localForm)
-      : {
-          firstname: "",
-          lastname: "",
-          username: "",
-          email: "",
-          phonenmbr: "",
-          password: "",
-          confpassword: "",
-          date: "",
-          image: "",
-        }
-  );
-  console.log("localform", localForm);
+  useEffect(() => {
+    const localForm = localStorage.getItem("my-form");
+    if (localForm) {
+      setForm(JSON.parse(localForm));
+    }
+  }, []);
 
   //  page 1
   if (step === "first") {
     return (
       <div className="bg-[#F4F4F4] w-full h-screen flex justify-center items-center">
-        <motion.div
-          initial={{ opacity: 0, right: -30 }}
-          animate={{ opacity: 1, right: 0 }}
-          transition={{ duration: 1 }}
-          style={{ position: "relative" }}
-        >
+        <div>
           <div className=" w-[480px] h-fit rounded-md bg-white shadow-lg p-8">
             <div>
               <img className="w-[60px] h-[60px]" src="Main 1.png" />
@@ -50,7 +44,7 @@ const Form = () => {
 
             <FirstPage form={form} onChange={setForm} onChangeStep={setStep} />
           </div>
-        </motion.div>
+        </div>
       </div>
     );
   }
@@ -59,12 +53,7 @@ const Form = () => {
   if (step === "second") {
     return (
       <div className="bg-[#F4F4F4] w-full h-screen flex overflow-hidden justify-center items-center">
-        <motion.div
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
-          style={{ position: "relative" }}
-        >
+        <div>
           <div className=" w-[480px]  rounded-md bg-white shadow-lg p-8">
             <div>
               <img className="w-[60px] h-[60px]" src="Main 1.png" />
@@ -82,7 +71,7 @@ const Form = () => {
               onChangeForm={setForm}
             />
           </div>
-        </motion.div>
+        </div>
       </div>
     );
   }
@@ -114,7 +103,13 @@ const Form = () => {
   // page 4
   if (step === "fourth") {
     return (
-      <div className="bg-[#F4F4F4] w-full  h-screen flex justify-center items-center">
+      <motion.div
+        className="bg-[#F4F4F4] w-full  h-screen flex justify-center items-center"
+        initial={{ opacity: 0, right: -30 }}
+        animate={{ opacity: 1, right: 0 }}
+        transition={{ duration: 1 }}
+        style={{ position: "relative" }}
+      >
         <div className=" w-[480px]  rounded-md bg-white shadow-lg p-8">
           <div>
             <img className="w-[60px] h-[60px]" src="Main 1.png" />
@@ -126,7 +121,7 @@ const Form = () => {
             </p>
           </div>
         </div>
-      </div>
+      </motion.div>
     );
   }
 };

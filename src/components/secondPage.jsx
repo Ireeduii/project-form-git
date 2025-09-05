@@ -1,9 +1,44 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "motion/react";
 
 export const SecondPage = ({ structure, onChangeStepPage2, onChangeForm }) => {
+  const newErrors = {};
   const [errors, setErrors] = useState({});
 
+  useEffect(() => {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (emailRegex.test(structure.email)) {
+      newErrors.email = null;
+    } else {
+      newErrors.email = "Please provide a valid email address";
+    }
+    setErrors({ ...errors, ...newErrors });
+  }, [structure.email]);
+
+  useEffect(() => {
+    const phoneRegex = /^\d{8}$/;
+    if (phoneRegex.test(structure.phonenmbr)) {
+      newErrors.phonenmbr = null;
+    } else {
+      newErrors.phonenmbr = "Please enter a valid phone number.";
+    }
+    setErrors({ ...errors, ...newErrors });
+  }, [structure.phonenmbr]);
+
+  useEffect(() => {
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+    if (passwordRegex.test(structure.password)) {
+      newErrors.password = null;
+    } else {
+      newErrors.password = "Password must include letters and numbers.";
+    }
+    if (structure.password === structure.confpassword) {
+      newErrors.confpassword = null;
+    } else {
+      newErrors.confpassword = "Password do not match";
+    }
+    setErrors({ ...errors, ...newErrors });
+  }, [structure.password, structure.confpassword]);
   function gotoNext() {
     const newErrors = {};
 
@@ -39,11 +74,18 @@ export const SecondPage = ({ structure, onChangeStepPage2, onChangeForm }) => {
       !newErrors.phonenmbr &&
       !newErrors.password & !newErrors.confpassword
     ) {
+      localStorage.setItem("my-form", JSON.stringify(structure));
       onChangeStepPage2("third");
     }
   }
   return (
-    <div className="mt-10">
+    <motion.div
+      className="mt-10"
+      initial={{ opacity: 0, right: -30 }}
+      animate={{ opacity: 1, right: 0 }}
+      transition={{ duration: 1 }}
+      style={{ position: "relative" }}
+    >
       <div>
         <p className="font-semibold text-black">
           Email<span className="text-red-600">*</span>
@@ -55,7 +97,7 @@ export const SecondPage = ({ structure, onChangeStepPage2, onChangeForm }) => {
           onChange={(e) =>
             onChangeForm({ ...structure, email: e.target.value })
           }
-          className="w-full px-3 py-2 border text-[#8B8E95] border-gray-300 rounded-md mt-2"
+          className="w-full px-3 py-2 border text-black border-gray-300 rounded-md mt-2"
         />
         {errors.email && (
           <div className="text-red-600 text-[14px] mt-2">{errors.email}</div>
@@ -72,7 +114,7 @@ export const SecondPage = ({ structure, onChangeStepPage2, onChangeForm }) => {
             onChangeForm({ ...structure, phonenmbr: e.target.value })
           }
           placeholder="Placeholder"
-          className="w-full px-3 py-2 border text-[#8B8E95] border-gray-300 rounded-md mt-2"
+          className="w-full px-3 py-2 border text-black border-gray-300 rounded-md mt-2"
         />
         {errors.phonenmbr && (
           <div className="text-red-600 text-[14px] mt-2">
@@ -92,7 +134,7 @@ export const SecondPage = ({ structure, onChangeStepPage2, onChangeForm }) => {
             onChangeForm({ ...structure, password: e.target.value })
           }
           placeholder="Placeholder"
-          className="w-full px-3 py-2 border text-[#8B8E95] border-gray-300 rounded-md mt-2"
+          className="w-full px-3 py-2 border text-black border-gray-300 rounded-md mt-2"
         />
         {errors.password && (
           <div className="text-red-600 text-[14px] mt-2">{errors.password}</div>
@@ -110,7 +152,7 @@ export const SecondPage = ({ structure, onChangeStepPage2, onChangeForm }) => {
             onChangeForm({ ...structure, confpassword: e.target.value })
           }
           placeholder="Placeholder"
-          className="w-full px-3 py-2 border text-[#8B8E95] border-gray-300 rounded-md mt-2"
+          className="w-full px-3 py-2 border text-black border-gray-300 rounded-md mt-2"
         />
         {errors.confpassword && (
           <div className="text-red-600 text-[14px] mt-2">
@@ -141,6 +183,6 @@ export const SecondPage = ({ structure, onChangeStepPage2, onChangeForm }) => {
           </motion.button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
